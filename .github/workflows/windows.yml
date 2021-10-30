@@ -1,0 +1,33 @@
+name: Build (Windows)
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build-windows:
+    runs-on: windows-2019
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Configure
+      run: cmake -S . -B build -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Release .
+
+    - name: Build
+      run: |
+        cmake --build build --config Release --parallel %NUMBER_OF_PROCESSORS% --verbose
+        tree
+
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifact
+        path: build
+
