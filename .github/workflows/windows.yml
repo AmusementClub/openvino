@@ -25,7 +25,7 @@ jobs:
       run: pip install ninja
 
     - name: Configure
-      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=OFF
+      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=OFF -LA
         -D CMAKE_TOOLCHAIN_FILE=%cd%\cmake\toolchains\mt.runtime.win32.toolchain.cmake
         -D ENABLE_LTO=ON -DENABLE_FASTER_BUILD=ON
         -D ENABLE_PYTHON=OFF
