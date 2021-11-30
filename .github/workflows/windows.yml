@@ -1,0 +1,69 @@
+name: Build (Windows)
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build-windows:
+    runs-on: windows-2022
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        ref: master
+        fetch-depth: 0
+
+    - name: Setup MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Setup Ninja
+      run: pip install ninja
+
+    - name: Configure
+      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=OFF
+        -D CMAKE_TOOLCHAIN_FILE=%cd%\cmake\toolchains\mt.runtime.win32.toolchain.cmake
+        -D ENABLE_LTO=ON -DENABLE_FASTER_BUILD=ON
+        -D ENABLE_PYTHON=OFF
+        -D ENABLE_OPENCV=OFF -D ENABLE_GAPI_PREPROCESSING=OFF
+        -D ENABLE_SAMPLES=OFF -DENABLE_TESTS=OFF -DENABLE_REQUIREMENTS_INSTALL=OFF
+        -D ENABLE_ONEDNN_FOR_GPU=OFF -DENABLE_CLDNN=OFF -DENABLE_GNA=OFF -D ENABLE_HETERO=OFF
+        -D ENABLE_MULTI=OFF -D ENABLE_TEMPLATE=OFF -D ENABLE_VPU=OFF
+        -D NGRAPH_PDPD_FRONTEND_ENABLE=OFF -D ENABLE_V7_SERIALIZE=OFF
+        -D ENABLE_NCC_STYLE=OFF -D ENABLE_CLANG_FORMAT=OFF -D ENABLE_CPPLINT=OFF
+
+    - name: Build
+      run: cmake --build build --verbose
+
+    - name: Install
+      run: cmake --install build --prefix openvino
+
+    - name: Show
+      run: ls -R openvino
+
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: openvino-cpu-win64
+        retention-days: 1
+        path: openvino
+
+    - name: Package
+      shell: pwsh
+      run: Compress-Archive openvino -DestinationPath openvino-cpu-win64.zip
+
+    - name: Get description
+      shell: bash
+      run: echo OV_VERSION=`git describe --tags --long` >> $GITHUB_ENV
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: openvino-cpu-win64.zip
+        name: Build ${{ env.OV_VERSION }}
+        tag_name: ${{ env.OV_VERSION }}
+        prerelease: true
