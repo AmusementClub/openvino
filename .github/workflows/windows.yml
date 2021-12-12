@@ -40,17 +40,16 @@ jobs:
       run: cmake --build build --verbose
 
     - name: Install
-      run: cmake --install build --prefix openvino
+      run: |
+        cmake --install build --prefix openvino
+        mkdir openvino/thirdparty
+        move thirdparty/onnx openvino/thirdparty
+        move build/thirdparty/onnx openvino/thirdparty
+        move thirdparty/protobuf openvino/thirdparty
+        move build/thirdparty/protobuf openvino/thirdparty
 
     - name: Show
       run: ls -R openvino
-
-    - name: Upload
-      uses: actions/upload-artifact@v2
-      with:
-        name: openvino-cpu-win64
-        retention-days: 1
-        path: openvino
 
     - name: Package
       shell: pwsh
