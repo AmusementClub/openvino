@@ -40,13 +40,13 @@ jobs:
       run: cmake --build build --verbose
 
     - name: Install
+      shell: bash
       run: |
         cmake --install build --prefix openvino
-        mkdir openvino/thirdparty
-        move thirdparty/onnx openvino/thirdparty
-        move build/thirdparty/onnx openvino/thirdparty
-        move thirdparty/protobuf openvino/thirdparty
-        move build/thirdparty/protobuf openvino/thirdparty
+        mkdir openvino/include
+        cp -R -v thirdparty/onnx/onnx/onnx openvino/include
+        cp -R -v build/thirdparty/onnx/onnx/onnx openvino/include
+        cp -R -v thirdparty/protobuf/protobuf/src/* openvino/include
 
     - name: Show
       run: ls -R openvino
