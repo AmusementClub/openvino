@@ -2059,7 +2059,7 @@ void GNAPluginNS::backend::AMIntelDNN::WriteInputAndOutputTextGNA(intel_nnet_typ
             if (numItems) {
                 auto rmse = sqrt(summOfSqDiff / numItems);
                 auto avg = summOfDiff / numItems;
-                std :: cout << std::left << std::setw(55) << out_file_name.str()
+                std :: cerr << std::left << std::setw(55) << out_file_name.str()
                             << " RMSE="<< std::fixed << std::setprecision(5) << std::right << std::setw(8) << rmse
                             << " avg=" << std::fixed << std::setprecision(5) << std::right << std::setw(8) << avg
                             << " maxD="<< std::fixed << std::setprecision(5) << std::right << std::setw(8) << maxD << std::endl;
@@ -2156,7 +2156,7 @@ void GNAPluginNS::backend::AMIntelDNN::WriteInputAndOutputText() {
         if (numItems) {
             auto rmse = sqrt(summOfSqDiff / numItems);
             auto avg = summOfDiff / numItems;
-            std :: cout << std::left << std::setw(55) << out_file_name.str()
+            std :: cerr << std::left << std::setw(55) << out_file_name.str()
                         << " RMSE="<< std::fixed << std::setprecision(5) << std::right << std::setw(8) << rmse
                         << " avg=" << std::fixed << std::setprecision(5) << std::right << std::setw(8) << avg
                         << " maxD="<< std::fixed << std::setprecision(5) << std::right << std::setw(8) << maxD << std::endl;

@@ -617,10 +617,10 @@ public:
     /*! @code
     *
     tensor my_tensor(batch(2), spatial(5, 6));   // y=6, x=5, b=2, f - not set
-    cout << my_tensor.batch[0] << endl;           // 2
-    cout << my_tensor.feature[0] << endl;         // 1 - default_size
-    cout << "x=" << my_tensor.spatial[0] << endl; // x=5
-    cout << "y=" << my_tensor.spatial[1] << endl; // y=6
+    cerr << my_tensor.batch[0] << endl;           // 2
+    cerr << my_tensor.feature[0] << endl;         // 1 - default_size
+    cerr << "x=" << my_tensor.spatial[0] << endl; // x=5
+    cerr << "y=" << my_tensor.spatial[1] << endl; // y=6
     *
     * @endcode
     */
@@ -643,10 +643,10 @@ public:
     /*! @code
      *
        tensor my_tensor( 2, 3, 4, 5 );   // b=2, f=3, x=4, y=5
-       cout << my_tensor.batch[0] << endl;           // 2
-       cout << my_tensor.feature[0] << endl;         // 3
-       cout << "x=" << my_tensor.spatial[0] << endl; // x=4
-       cout << "y=" << my_tensor.spatial[1] << endl; // y=5
+       cerr << my_tensor.batch[0] << endl;           // 2
+       cerr << my_tensor.feature[0] << endl;         // 3
+       cerr << "x=" << my_tensor.spatial[0] << endl; // x=4
+       cerr << "y=" << my_tensor.spatial[1] << endl; // y=5
      *
      * @endcode
      */
@@ -665,11 +665,11 @@ public:
     /*! @code
     *
     tensor my_tensor( 2, 3, 4, 5, 6 );   // b=2, f=3, x=4, y=5, z=6
-    cout << my_tensor.batch[0] << endl;           // 2
-    cout << my_tensor.feature[0] << endl;         // 3
-    cout << "x=" << my_tensor.spatial[0] << endl; // x=4
-    cout << "y=" << my_tensor.spatial[1] << endl; // y=5
-    cout << "z=" << my_tensor.spatial[2] << endl; // z=6
+    cerr << my_tensor.batch[0] << endl;           // 2
+    cerr << my_tensor.feature[0] << endl;         // 3
+    cerr << "x=" << my_tensor.spatial[0] << endl; // x=4
+    cerr << "y=" << my_tensor.spatial[1] << endl; // y=5
+    cerr << "z=" << my_tensor.spatial[2] << endl; // z=6
     *
     * @endcode
     */
@@ -687,12 +687,12 @@ public:
     /*! @code
     *
     tensor my_tensor( 2, 3, 4, 5, 6, 7 );   // b=2, f=3, x=4, y=5, z=6, w=7
-    cout << my_tensor.batch[0] << endl;           // 2
-    cout << my_tensor.feature[0] << endl;         // 3
-    cout << "x=" << my_tensor.spatial[0] << endl; // x=4
-    cout << "y=" << my_tensor.spatial[1] << endl; // y=5
-    cout << "z=" << my_tensor.spatial[2] << endl; // z=6
-    cout << "w=" << my_tensor.spatial[3] << endl; // w=7
+    cerr << my_tensor.batch[0] << endl;           // 2
+    cerr << my_tensor.feature[0] << endl;         // 3
+    cerr << "x=" << my_tensor.spatial[0] << endl; // x=4
+    cerr << "y=" << my_tensor.spatial[1] << endl; // y=5
+    cerr << "z=" << my_tensor.spatial[2] << endl; // z=6
+    cerr << "w=" << my_tensor.spatial[3] << endl; // w=7
     *
     * @endcode
     */
@@ -713,10 +713,10 @@ public:
     /*! @code
      *
        tensor my_tensor = { 2, 3, 4, 5 };   // b=2, f=3, x=4, y=5
-       cout << my_tensor.batch[0] << endl;           // 2
-       cout << my_tensor.feature[0] << endl;         // 3
-       cout << "x=" << my_tensor.spatial[0] << endl; // x=4
-       cout << "y=" << my_tensor.spatial[1] << endl; // y=5
+       cerr << my_tensor.batch[0] << endl;           // 2
+       cerr << my_tensor.feature[0] << endl;         // 3
+       cerr << "x=" << my_tensor.spatial[0] << endl; // x=4
+       cerr << "y=" << my_tensor.spatial[1] << endl; // y=5
      *
      * @endcode
      */
@@ -916,16 +916,16 @@ public:
      * @code
        tensor my_tensor({ 2, 3, 4, 5 });
        auto my_sizes = my_tensor.sizes();
-       cout << "dims_num=" << my_sizes.size() << endl; // dims_num=2
-       cout << "b=" << my_sizes[0] << endl;            // b=2
-       cout << "f=" << my_sizes[1] << endl;            // f=3
-       cout << "x=" << my_sizes[2] << endl;            // x=5
-       cout << "y=" << my_sizes[3] << endl;            // y=4
+       cerr << "dims_num=" << my_sizes.size() << endl; // dims_num=2
+       cerr << "b=" << my_sizes[0] << endl;            // b=2
+       cerr << "f=" << my_sizes[1] << endl;            // f=3
+       cerr << "x=" << my_sizes[2] << endl;            // x=5
+       cerr << "y=" << my_sizes[3] << endl;            // y=4
        auto new_tensor = my_tensor.transform(format::yxfb, 10);
        auto new_sizes = new_tensor.sizes();
-       cout << "new_num=" << new_sizes.size() << endl;   // new_num=4
-       for(auto dim : new_sizes) cout << " " << dim;     //  5 4 3 2
-       cout << endl;
+       cerr << "new_num=" << new_sizes.size() << endl;   // new_num=4
+       for(auto dim : new_sizes) cerr << " " << dim;     //  5 4 3 2
+       cerr << endl;
        * @endcode
      */
     tensor transform(cldnn::format new_fmt, value_type default_size) const {

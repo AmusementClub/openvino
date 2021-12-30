@@ -28,7 +28,7 @@ bool Verbose::shouldBePrinted() const {
     return true;
 }
 /**
- * Print node verbose execution information to cout.
+ * Print node verbose execution information to cerr.
  * Similiar to DNNL_VERBOSE output
  * Formating written in C using oneDNN format functions.
  * Can be rewritten in pure C++ if necessary

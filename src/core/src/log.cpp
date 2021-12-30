@@ -19,7 +19,7 @@ using namespace std;
 using namespace ngraph;
 
 void ngraph::default_logger_handler_func(const string& s) {
-    cout << s + "\n";
+    cerr << s + "\n";
 }
 
 LogHelper::LogHelper(LOG_TYPE type, const char* file, int line, function<void(const string&)> handler_func)
