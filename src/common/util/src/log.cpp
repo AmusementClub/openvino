@@ -10,7 +10,7 @@
 #include <iostream>
 
 void ov::util::default_logger_handler_func(const std::string& s) {
-    std::cout << s << std::endl;
+    std::cerr << s << std::endl;
 }
 
 ov::util::LogHelper::LogHelper(LOG_TYPE type,

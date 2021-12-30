@@ -479,7 +479,7 @@ void CNNNetworkNGraphImpl::reshape(const std::map<std::string, ngraph::PartialSh
 
         for (const auto& item : signatures)
             for (const auto& shape_to_count : item.second)
-                std::cout << item.first << " " << shape_to_count.second << "x " << shape_to_count.first << std::endl;
+                std::cerr << item.first << " " << shape_to_count.second << "x " << shape_to_count.first << std::endl;
 #endif
         std::unordered_set<std::string> opName;
         for (const auto& result : specialized_ngraph_function->get_results()) {

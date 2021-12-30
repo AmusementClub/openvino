@@ -175,7 +175,7 @@ void LayerTransformation::printDequantizationInfo(const std::shared_ptr<Node>& l
     auto fq = as_type_ptr<opset1::FakeQuantize>(layer);
     if (fq) {
         const QuantizationDetails quantizationDetails = QuantizationDetails::getDetails(ov::as_type_ptr<opset1::FakeQuantize>(layer));
-        std::cout <<
+        std::cerr <<
             layer->get_type_name() << (NetworkHelper::isConstantPath(layer) ? " on weights " : " on activations ") <<
             layer->get_friendly_name() << ":" << std::endl <<
             "   details  : " << quantizationDetails << std::endl;
@@ -183,13 +183,13 @@ void LayerTransformation::printDequantizationInfo(const std::shared_ptr<Node>& l
 }
 
 void LayerTransformation::printDequantizationInfo(const DataPrecision& dataPrecision) {
-    std::cout << "   precision: " << dataPrecision << std::endl;
+    std::cerr << "   precision: " << dataPrecision << std::endl;
 }
 
 void LayerTransformation::printDequantizationValues(
     const std::vector<float>& dequantizationScales,
     const std::vector<float>& dequantizationShifts) {
-    std::cout <<
+    std::cerr <<
         "   scales   : " << toStream(dequantizationScales).str() << std::endl <<
         "   shifts   : " << toStream(dequantizationShifts).str() << std::endl;
 }
@@ -239,8 +239,8 @@ LayerTransformation::PrecisionDetails LayerTransformation::getPrecisionDetails(
             }
 #ifdef LPT_PRINT_DEQUANTIZATION_INFO
             if (hasZeroPoint) {
-                std::cout << "   actual: " << actual << ", threshold: " << quantizationIntervalAsymmetryThreshold << std::endl;
-                std::cout << "   hasZeroPoint: " << (hasZeroPoint ? "True" : "False") << std::endl;
+                std::cerr << "   actual: " << actual << ", threshold: " << quantizationIntervalAsymmetryThreshold << std::endl;
+                std::cerr << "   hasZeroPoint: " << (hasZeroPoint ? "True" : "False") << std::endl;
             }
 #endif
         } else {
@@ -255,8 +255,8 @@ LayerTransformation::PrecisionDetails LayerTransformation::getPrecisionDetails(
                 const float actual = quantizationDetails.outputLowValues[i] > 0.f ?
                     quantizationDetails.outputLowValues[i] :
                     quantizationDetails.outputHighValues[i];
-                std::cout << "   actual: " << actual << ", threshold: 0.0" << std::endl;
-                std::cout << "   hasZeroPoint: " << (hasZeroPoint ? "True" : "False") << std::endl;
+                std::cerr << "   actual: " << actual << ", threshold: 0.0" << std::endl;
+                std::cerr << "   hasZeroPoint: " << (hasZeroPoint ? "True" : "False") << std::endl;
             }
 #endif
         }
@@ -426,7 +426,7 @@ void LayerTransformation::addPattern(ngraph::pass::GraphRewrite& pass, Transform
 #ifdef LPT_DISPLAY_PRECISION
         if (result) {
             auto operationNode = m.get_match_root();
-            std::cout << "Operation was transformed: " <<
+            std::cerr << "Operation was transformed: " <<
                 operationNode->get_type_name() << ", " <<
                 operationNode->get_friendly_name() << ", output operation precision: " <<
                 ((operationNode->get_output_size() == 1u) ? operationNode->get_output_element_type(0) : ngraph::element::Type()) <<

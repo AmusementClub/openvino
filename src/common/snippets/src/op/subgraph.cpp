@@ -332,7 +332,7 @@ void snippets::op::Subgraph::print_statistics(bool verbose) {
 
     auto body = this->get_body();
 
-    std::cout << this->get_friendly_name()
+    std::cerr << this->get_friendly_name()
                 << ";" << this
                 << ";" << body->get_ops().size()
                 << ";" << body->get_parameters().size()
@@ -352,5 +352,5 @@ void snippets::op::Subgraph::serialize() const {
     serializer.run_on_function(get_body());
     auto m_constants = binFile.str();
     auto m_model = xmlFile.str();
-    std::cout << m_model << std::endl;
+    std::cerr << m_model << std::endl;
 }

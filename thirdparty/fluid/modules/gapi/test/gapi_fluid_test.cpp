@@ -31,17 +31,17 @@ namespace
     };
     void ReadFunction1x1(const uint8_t* row, int w) {
         for (int i = 0; i < w; i++)
-            std::cout << std::setw(4) << static_cast<int>(row[i]) << " ";
-        std::cout << "\n";
+            std::cerr << std::setw(4) << static_cast<int>(row[i]) << " ";
+        std::cerr << "\n";
     };
     void ReadFunction3x3(const uint8_t* rows[3], int w) {
         for (int i = 0; i < 3; i++) {
             for (int j = -1; j < w+1; j++) {
-                std::cout << std::setw(4) << static_cast<int>(rows[i][j]) << " ";
+                std::cerr << std::setw(4) << static_cast<int>(rows[i][j]) << " ";
             }
-            std::cout << "\n";
+            std::cerr << "\n";
         }
-        std::cout << "\n";
+        std::cerr << "\n";
     };
 }
 
@@ -79,7 +79,7 @@ TEST(FluidBuffer, CircularTest)
     cv::gapi::fluid::View view = buffer.mkView(1, {});
     view.priv().reset(3);
     view.priv().allocate(3, {});
-    buffer.debug(std::cout);
+    buffer.debug(std::cerr);
 
     const auto whole_line_is = [](const uint8_t *line, int len, int value)
     {
@@ -103,7 +103,7 @@ TEST(FluidBuffer, CircularTest)
                 .copyTo(written_data.row(num_writes));
             num_writes++;
         }
-        buffer.debug(std::cout);
+        buffer.debug(std::cerr);
 
         if (view.ready())
         {
@@ -115,7 +115,7 @@ TEST(FluidBuffer, CircularTest)
             };
             ReadFunction3x3(rrow, buffer_size.width);
             view.priv().readDone(1,3);
-            buffer.debug(std::cout);
+            buffer.debug(std::cerr);
 
             // Check borders right here
             EXPECT_EQ(255u, rrow[0][-1]);
@@ -340,7 +340,7 @@ TEST(Fluid, MultipleOutRowsTest)
                         cv::compile_args(fluidTestPackage));
     cc(in_mat, out_mat);
 
-    std::cout << out_mat << std::endl;
+    std::cerr << out_mat << std::endl;
 
     cv::Mat ocv_ref = in_mat + 1 + 2;
     EXPECT_EQ(0, cvtest::norm(ocv_ref, out_mat, NORM_INF));
@@ -369,7 +369,7 @@ TEST(Fluid, LPIWindow)
     auto cc = c.compile(cv::descr_of(in_mat), cv::compile_args(fluidTestPackage));
     cc(in_mat, out_mat);
 
-    //std::cout << out_mat << std::endl;
+    //std::cerr << out_mat << std::endl;
 
     // OpenCV reference
     cv::Mat ocv_ref = eyes[0]+eyes[1]+eyes[2];

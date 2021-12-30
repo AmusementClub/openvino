@@ -23,7 +23,7 @@ intel_dnn_component_t & DnnComponents::addComponent(const std::string layerName,
     components.emplace_back(DnnComponentExtra{layerName, {}, isDelayed});
     auto &currentComponent = components.back().dnnComponent;
 #ifdef PLOT
-    std::cout << "IR layer : " << std::left << std::setw(20) << layerName << " " << layerMetaType << "_" << components.size() - 1 << std::endl;
+    std::cerr << "IR layer : " << std::left << std::setw(20) << layerName << " " << layerMetaType << "_" << components.size() - 1 << std::endl;
 #endif
     currentComponent.original_layer_name = components.back().name.c_str();
     int execOrder = 0;

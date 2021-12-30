@@ -236,22 +236,22 @@ void serializeToXML(const MKLDNNGraph &graph, const std::string& path) {
 
 void serializeToCout(const MKLDNNGraph &graph) {
     for (const auto& node : graph.GetNodes()) {
-        std::cout << "name: " << node->getName() << " [ ";
+        std::cerr << "name: " << node->getName() << " [ ";
         auto nodeDesc = node->getSelectedPrimitiveDescriptor();
         if (nodeDesc) {
             auto& inConfs = nodeDesc->getConfig().inConfs;
             if (!inConfs.empty()) {
-                std::cout << "in: " << inConfs.front().desc->getPrecision().name()
+                std::cerr << "in: " << inConfs.front().desc->getPrecision().name()
                           << "/l=" << inConfs.front().desc->serializeFormat()
                           << "; ";
             }
             auto& outConfs = nodeDesc->getConfig().outConfs;
             if (!outConfs.empty()) {
-                std::cout << "out: " << outConfs.front().desc->getPrecision().name()
+                std::cerr << "out: " << outConfs.front().desc->getPrecision().name()
                           << "/l=" << outConfs.front().desc->serializeFormat();
             }
         }
-        std::cout << " ]"  << std::endl;
+        std::cerr << " ]"  << std::endl;
     }
 }
 #endif

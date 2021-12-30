@@ -33,10 +33,10 @@ GAPI_FLUID_KERNEL(FCopy, TCopy, false)
 
         for (int i = 0, w = in.length(); i < w; i++)
         {
-            //std::cout << std::setw(4) << int(in_row[i]);
+            //std::cerr << std::setw(4) << int(in_row[i]);
             out_row[i] = in_row[i];
         }
-        //std::cout << std::endl;
+        //std::cerr << std::endl;
     }
 };
 

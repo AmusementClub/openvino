@@ -25,35 +25,35 @@ GAPI_FLUID_KERNEL(FAddSimple, TAddSimple, false)
                     const cv::gapi::fluid::View   &b,
                           cv::gapi::fluid::Buffer &o)
     {
-        // std::cout << "AddSimple {{{\n";
-        // std::cout << "  a - "; a.debug(std::cout);
-        // std::cout << "  b - "; b.debug(std::cout);
-        // std::cout << "  o - "; o.debug(std::cout);
+        // std::cerr << "AddSimple {{{\n";
+        // std::cerr << "  a - "; a.debug(std::cerr);
+        // std::cerr << "  b - "; b.debug(std::cerr);
+        // std::cerr << "  o - "; o.debug(std::cerr);
 
         const uint8_t* in1 = a.InLine<uint8_t>(0);
         const uint8_t* in2 = b.InLine<uint8_t>(0);
               uint8_t* out = o.OutLine<uint8_t>();
 
-        // std::cout << "a: ";
+        // std::cerr << "a: ";
         // for (int i = 0, w = a.length(); i < w; i++)
         // {
-        //     std::cout << std::setw(4) << int(in1[i]);
+        //     std::cerr << std::setw(4) << int(in1[i]);
         // }
-        // std::cout << "\n";
+        // std::cerr << "\n";
 
-        // std::cout << "b: ";
+        // std::cerr << "b: ";
         // for (int i = 0, w = a.length(); i < w; i++)
         // {
-        //     std::cout << std::setw(4) << int(in2[i]);
+        //     std::cerr << std::setw(4) << int(in2[i]);
         // }
-        // std::cout << "\n";
+        // std::cerr << "\n";
 
         for (int i = 0, w = a.length(); i < w; i++)
         {
             out[i] = in1[i] + in2[i];
         }
 
-        // std::cout << "}}} " << std::endl;;
+        // std::cerr << "}}} " << std::endl;;
     }
 };
 
@@ -70,14 +70,14 @@ GAPI_FLUID_KERNEL(FAddCSimple, TAddCSimple, false)
         {
             const uint8_t* in_row  = in .InLine <uint8_t>(l);
                   uint8_t* out_row = out.OutLine<uint8_t>(l);
-            //std::cout << "l=" << l << ": ";
+            //std::cerr << "l=" << l << ": ";
             for (int i = 0, w = in.length(); i < w; i++)
             {
-                //std::cout << std::setw(4) << int(in_row[i]);
+                //std::cerr << std::setw(4) << int(in_row[i]);
                 //FIXME: it seems that over kernels might need it as well
                 out_row[i] = cv::gapi::own::saturate<uint8_t>(in_row[i] + cval);
             }
-            //std::cout << std::endl;
+            //std::cerr << std::endl;
         }
     }
 };
@@ -95,13 +95,13 @@ GAPI_FLUID_KERNEL(FAddScalar, TAddScalar, false)
         {
             const uint8_t* in_row  = in .InLine <uint8_t>(l);
                   uint8_t* out_row = out.OutLine<uint8_t>(l);
-            std::cout << "l=" << l << ": ";
+            std::cerr << "l=" << l << ": ";
             for (int i = 0, w = in.length(); i < w; i++)
             {
-                std::cout << std::setw(4) << int(in_row[i]);
+                std::cerr << std::setw(4) << int(in_row[i]);
                 out_row[i] = static_cast<uint8_t>(in_row[i] + cval[0]);
             }
-            std::cout << std::endl;
+            std::cerr << std::endl;
         }
     }
 };
@@ -119,13 +119,13 @@ GAPI_FLUID_KERNEL(FAddScalarToMat, TAddScalarToMat, false)
         {
             const uint8_t* in_row  = in .InLine <uint8_t>(l);
                   uint8_t* out_row = out.OutLine<uint8_t>(l);
-            std::cout << "l=" << l << ": ";
+            std::cerr << "l=" << l << ": ";
             for (int i = 0, w = in.length(); i < w; i++)
             {
-                std::cout << std::setw(4) << int(in_row[i]);
+                std::cerr << std::setw(4) << int(in_row[i]);
                 out_row[i] = static_cast<uint8_t>(in_row[i] + cval[0]);
             }
-            std::cout << std::endl;
+            std::cerr << std::endl;
         }
     }
 };
@@ -286,20 +286,20 @@ GAPI_FLUID_KERNEL(FId7x7, TId7x7, false)
             };
             uint8_t* out = o.OutLine<uint8_t>(l);
 
-            // std::cout << "Id7x7 " << l << " of " << lpi << " {{{\n";
-            // std::cout << "  a - "; a.debug(std::cout);
-            // std::cout << "  o - "; o.debug(std::cout);
-            // std::cout << "}}} " << std::endl;;
+            // std::cerr << "Id7x7 " << l << " of " << lpi << " {{{\n";
+            // std::cerr << "  a - "; a.debug(std::cerr);
+            // std::cerr << "  o - "; o.debug(std::cerr);
+            // std::cerr << "}}} " << std::endl;;
 
-            // // std::cout << "Id7x7 at " << a.y() << "/L" << l <<  " {{{" << std::endl;
+            // // std::cerr << "Id7x7 at " << a.y() << "/L" << l <<  " {{{" << std::endl;
             // for (int j = 0; j < Window; j++)
             // {
-            //     // std::cout << std::setw(2) << j-(Window-1)/2 << ": ";
+            //     // std::cerr << std::setw(2) << j-(Window-1)/2 << ": ";
             //     for (int i = 0, w = a.length(); i < w; i++)
-            //         std::cout << std::setw(4) << int(in[j][i]);
-            //     std::cout << std::endl;
+            //         std::cerr << std::setw(4) << int(in[j][i]);
+            //     std::cerr << std::endl;
             // }
-            // std::cout << "}}}" << std::endl;
+            // std::cerr << "}}}" << std::endl;
 
             for (int i = 0, w = a.length(); i < w; i++)
                 out[i] = in[(Window-1)/2][i];
@@ -369,12 +369,12 @@ static void split3Row(const cv::gapi::fluid::View   &in,
 {
     for (int l = 0; l < o1.lpi(); l++)
     {
-        // std::cout << "Split3  {{{\n";
-        // std::cout << "  a - "; in.debug(std::cout);
-        // std::cout << "  1 - "; o1.debug(std::cout);
-        // std::cout << "  2 - "; o2.debug(std::cout);
-        // std::cout << "  3 - "; o3.debug(std::cout);
-        // std::cout << "}}} " << std::endl;;
+        // std::cerr << "Split3  {{{\n";
+        // std::cerr << "  a - "; in.debug(std::cerr);
+        // std::cerr << "  1 - "; o1.debug(std::cerr);
+        // std::cerr << "  2 - "; o2.debug(std::cerr);
+        // std::cerr << "  3 - "; o3.debug(std::cerr);
+        // std::cerr << "}}} " << std::endl;;
 
         const uint8_t* in_rgb = in.InLine<uint8_t>(l);
               uint8_t* out_r  = o1.OutLine<uint8_t>(l);
@@ -437,14 +437,14 @@ GAPI_FLUID_KERNEL(FSum2MatsAndScalar, TSum2MatsAndScalar, false)
             const uint8_t* in_row1  = a .InLine <uint8_t>(l);
             const uint8_t* in_row2  = b .InLine <uint8_t>(l);
                   uint8_t* out_row = out.OutLine<uint8_t>(l);
-            std::cout << "l=" << l << ": ";
+            std::cerr << "l=" << l << ": ";
             for (int i = 0, w = a.length(); i < w; i++)
             {
-                std::cout << std::setw(4) << int(in_row1[i]);
-                std::cout << std::setw(4) << int(in_row2[i]);
+                std::cerr << std::setw(4) << int(in_row1[i]);
+                std::cerr << std::setw(4) << int(in_row2[i]);
                 out_row[i] = static_cast<uint8_t>(in_row1[i] + in_row2[i] + cval[0]);
             }
-            std::cout << std::endl;
+            std::cerr << std::endl;
         }
     }
 };

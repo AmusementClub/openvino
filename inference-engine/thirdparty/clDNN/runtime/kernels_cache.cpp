@@ -370,9 +370,9 @@ void kernels_cache::build_batch(const engine& build_engine, const batch_program&
     if (!err_log.empty()) {
         GPU_DEBUG_GET_INSTANCE(debug_config);
         GPU_DEBUG_IF(debug_config->verbose) {
-            std::cout << "-------- OpenCL build error" << std::endl;
-            std::cout << err_log << std::endl;
-            std::cout << "-------- End of OpenCL build error" << std::endl;
+            std::cerr << "-------- OpenCL build error" << std::endl;
+            std::cerr << err_log << std::endl;
+            std::cerr << "-------- End of OpenCL build error" << std::endl;
         }
         std::stringstream err_ss(err_log);
         std::string line;
@@ -383,9 +383,9 @@ void kernels_cache::build_batch(const engine& build_engine, const batch_program&
                 cnt = 5;
             cnt--;
             if (cnt > 0)
-                std::cout << line << std::endl;
+                std::cerr << line << std::endl;
             else if (cnt == 0)
-                std::cout << "...." << std::endl;
+                std::cerr << "...." << std::endl;
         }
 
         throw std::runtime_error("Program build failed(" + std::to_string(batch.bucket_id) + + "_part_"

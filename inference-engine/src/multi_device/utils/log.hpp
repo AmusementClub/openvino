@@ -172,7 +172,7 @@ inline void Log::setLogLevel(LogLevel logLevel_) {
 }
 
 inline void Log::print(std::stringstream& stream) {
-    std::cout << stream.str() << std::endl;
+    std::cerr << stream.str() << std::endl;
 }
 template <typename... Args>
 inline void Log::doLog(bool on, bool isTraceCallStack, LogLevel level, const char* levelStr, const char* file,

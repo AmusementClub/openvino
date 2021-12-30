@@ -16,5 +16,5 @@ static inline auto remark(T x) -> std::ostream& {
     static logstreambuf nostreambuf;
     static std::ostream nocout(&nostreambuf);
 
-    return ((x >= logstreambuf::threshold)? std::cout << "Remark: " : nocout);
+    return ((x >= logstreambuf::threshold)? std::cerr << "Remark: " : nocout);
 }

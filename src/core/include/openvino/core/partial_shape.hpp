@@ -399,7 +399,7 @@ OPENVINO_API PartialShape operator+(const PartialShape& s1, const PartialShape& 
 /// PartialShape s2{};
 /// PartialShape s3{1,Dimension::dynamic(),2,3};
 /// PartialShape s4{2,3,4};
-/// std::cout << s1 << std::endl
+/// std::cerr << s1 << std::endl
 ///           << s2 << std::endl
 ///           << s3 << std::endl
 ///           << s4 << std::endl;

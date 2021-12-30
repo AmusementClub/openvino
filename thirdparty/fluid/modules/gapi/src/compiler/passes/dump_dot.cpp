@@ -224,7 +224,7 @@ void dumpDot(ade::passes::PassContext &ctx, std::ostream& os)
 
 void dumpDotStdout(ade::passes::PassContext &ctx)
 {
-    dumpDot(ctx, std::cout);
+    dumpDot(ctx, std::cerr);
 }
 
 void dumpDotToFile(ade::passes::PassContext &ctx, const std::string& dump_path)

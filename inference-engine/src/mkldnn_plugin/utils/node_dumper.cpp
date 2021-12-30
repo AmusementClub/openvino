@@ -63,7 +63,7 @@ void NodeDumper::dumpInputBlobs(const MKLDNNNodePtr& node, int count) const {
             file_name = file_name.substr(file_name.size() - 240);
 
         auto dump_file = dumpDirName + "/#" + exec_order + "_" + file_name;
-        std::cout << "Dump inputs: " << dump_file << std::endl;
+        std::cerr << "Dump inputs: " << dump_file << std::endl;
 
         auto& desc = prEdge->getMemory().getDesc();
         if (desc.getPrecision() == Precision::BIN)
@@ -96,7 +96,7 @@ void NodeDumper::dumpOutputBlobs(const MKLDNNNodePtr& node, int count) const {
             file_name = file_name.substr(file_name.size() - 240);
 
         auto dump_file = dumpDirName + "/#" + exec_order + "_" + file_name;
-        std::cout << "Dump outputs:  " << dump_file << std::endl;
+        std::cerr << "Dump outputs:  " << dump_file << std::endl;
 
         auto& desc = childEdge->getMemory().getDesc();
         if (desc.getPrecision() == Precision::BIN)

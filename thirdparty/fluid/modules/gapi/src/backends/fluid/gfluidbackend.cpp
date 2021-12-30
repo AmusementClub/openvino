@@ -547,7 +547,7 @@ void cv::gimpl::FluidAgent::debug(std::ostream &os)
     {
         out_buf->debug(os);
     }
-    std::cout << "}}" << std::endl;
+    std::cerr << "}}" << std::endl;
 }
 
 // GCPUExcecutable implementation //////////////////////////////////////////////
@@ -1346,7 +1346,7 @@ void cv::gimpl::GFluidExecutable::run(std::vector<InObj>  &input_objs,
             bool work_done=false;
             for (auto &agent : m_agents)
             {
-                // agent->debug(std::cout);
+                // agent->debug(std::cerr);
                 if (!agent->done())
                 {
                     if (agent->canWork())

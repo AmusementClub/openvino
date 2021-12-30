@@ -128,7 +128,7 @@ class GNAMemory : public GNAMemRequestsQueue {
     void iterate_binded(GNAPluginNS::memory::MemRequest & reference, const T & visitor) {
         for (auto &re : _future_heap) {
             if ((re._type & REQUEST_BIND) && (re._ptr_in == reference._ptr_out)) {
-                // std::cout << "  [binded=" << rTypeToStr(re._type) << ", ptr=" << re._ptr_out <<"]\n";
+                // std::cerr << "  [binded=" << rTypeToStr(re._type) << ", ptr=" << re._ptr_out <<"]\n";
                 visitor(reference, re);
                 // primitive loop check
                 if (re._ptr_in == re._ptr_out) continue;

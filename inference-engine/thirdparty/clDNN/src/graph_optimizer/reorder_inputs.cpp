@@ -32,7 +32,7 @@
 #if CLDNN_REORDER_INPUTS_VERBOSE
 #include "to_string_utils.h"
 #include <iostream>
-#define CLDNN_REORDER_INPUTS_LOG(x) std::cout << "[clDNN][reorder_inputs] " << x << std::endl
+#define CLDNN_REORDER_INPUTS_LOG(x) std::cerr << "[clDNN][reorder_inputs] " << x << std::endl
 #endif
 
 #if CLDNN_REORDER_INPUTS_VERBOSE_PATTERN_MATCH

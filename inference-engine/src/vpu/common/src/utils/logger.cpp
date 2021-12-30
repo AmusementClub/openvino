@@ -38,7 +38,7 @@ private:
 class ConsoleOutput final : public OutputStreamBase {
 public:
     std::ostream& get() override {
-        return std::cout;
+        return std::cerr;
     }
 
     bool supportColors() const override {

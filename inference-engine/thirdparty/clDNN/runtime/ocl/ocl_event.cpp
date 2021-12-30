@@ -182,8 +182,8 @@ bool ocl_events::get_profiling_info_impl(std::list<instrumentation::profiling_in
             if (period.stage == instrumentation::profiling_stage::executing) {
                 GPU_DEBUG_COUT << "Multi-kernel time: ";
                 for (auto& duration : all_durations[period.stage])
-                    std::cout << "  " << (duration.second - duration.first) / 1000;
-                std::cout << " Total " << sum / 1000 << std::endl;
+                    std::cerr << "  " << (duration.second - duration.first) / 1000;
+                std::cerr << " Total " << sum / 1000 << std::endl;
             }
         }
 

@@ -163,7 +163,7 @@ void Verbose::printDuration() {
 }
 
 void Verbose::flush() const {
-    std::cout << stream.rdbuf() << "\n";
+    std::cerr << stream.rdbuf() << "\n";
 }
 } // namespace MKLDNNPlugin
 #endif // CPU_DEBUG_CAPS

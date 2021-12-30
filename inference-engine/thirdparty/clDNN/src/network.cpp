@@ -613,7 +613,7 @@ void network::execute_impl(const std::vector<event::ptr>& events) {
             GPU_DEBUG_IF(debug_config->dump_layers_dst_only == 0 &&
                             (debug_config->dump_layers.length() == 0 ||
                             (debug_config->dump_layers.length() != 0 && debug_config->dump_layers.find(" " + layer_name + " ") != std::string::npos))) {
-                std::cout << "Dump " << layer_name << " layer src" << std::endl;
+                std::cerr << "Dump " << layer_name << " layer src" << std::endl;
                 for (size_t i = 0; i < get_primitive(inst->id())->dependencies().size(); i++) {
                     log_memory_to_file(get_primitive(inst->id())->dep_memory_ptr(i), get_stream(),
                                     layer_name + "_src_" + std::to_string(i));
@@ -639,7 +639,7 @@ void network::execute_impl(const std::vector<event::ptr>& events) {
             std::string layer_name = node.id();
             GPU_DEBUG_IF(debug_config->dump_layers.length() == 0 ||
                         (debug_config->dump_layers.length() != 0 && debug_config->dump_layers.find(" " + layer_name + " ") != std::string::npos)) {
-                std::cout << "Dump " << layer_name << " layer dst" << std::endl;
+                std::cerr << "Dump " << layer_name << " layer dst" << std::endl;
                 log_memory_to_file(get_primitive(inst->id())->output_memory_ptr(), get_stream(), layer_name + "_dst_0");
             }
         }

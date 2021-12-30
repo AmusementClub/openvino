@@ -199,12 +199,12 @@ std::vector<std::chrono::nanoseconds> kernel_runner::run_kernels(const kernel_se
                     stream->set_arguments(*kernels[i], it->kernels[0].params, args);
                     event = stream->enqueue_kernel(*kernels[i], it->kernels[0].params, args, {});
                 } catch (std::exception& e) {
-                    std::cout << "[clDNN] Could not run kernel for auto-tune: " << it->kernelName
+                    std::cerr << "[clDNN] Could not run kernel for auto-tune: " << it->kernelName
                               << " with auto-tune index " << it->autoTuneIndex << std::endl
                               << ", error message:" << e.what();
                 } catch (...) {
                     // Could not run this kernel. Push back NULL event (will be ignored later).
-                    std::cout << "[clDNN] Could not run kernel for auto-tune: " << it->kernelName
+                    std::cerr << "[clDNN] Could not run kernel for auto-tune: " << it->kernelName
                               << " with auto-tune index " << it->autoTuneIndex << std::endl;
                 }
                 events.push_back(event);
