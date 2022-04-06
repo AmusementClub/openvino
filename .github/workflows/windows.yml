@@ -25,9 +25,9 @@ jobs:
       run: pip install ninja
 
     - name: Configure
-      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=OFF -LA
+      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Debug -D BUILD_SHARED_LIBS=OFF -LA
         -D CMAKE_TOOLCHAIN_FILE=%cd%\cmake\toolchains\mt.runtime.win32.toolchain.cmake
-        -D ENABLE_LTO=ON -DENABLE_FASTER_BUILD=ON
+        -D ENABLE_LTO=OFF -DENABLE_FASTER_BUILD=ON
         -D ENABLE_PYTHON=OFF
         -D ENABLE_OPENCV=OFF -D ENABLE_GAPI_PREPROCESSING=OFF
         -D ENABLE_SAMPLES=OFF -DENABLE_TESTS=OFF -DENABLE_REQUIREMENTS_INSTALL=OFF
@@ -57,7 +57,7 @@ jobs:
 
     - name: Get description
       shell: bash
-      run: echo OV_VERSION=`git describe --tags --long` >> $GITHUB_ENV
+      run: echo OV_VERSION=debug-`git describe --tags --long` >> $GITHUB_ENV
 
     - name: Release
       uses: softprops/action-gh-release@v1
