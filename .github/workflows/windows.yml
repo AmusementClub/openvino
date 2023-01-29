@@ -22,6 +22,7 @@ jobs:
     # required for CMAKE_MSVC_RUNTIME_LIBRARY
     - name: Patch target cmake version
       run: |
+        python -c "f=open('cmake/developer_package/api_validator/api_validator.cmake','r+b');s=f.read();insert_str=b'set(UWP_API_VALIDATOR \"\")\n    ';point=s.index(b'if(UWP_API_VALIDATOR)');s=s[:point]+insert_str+s[point:];f.seek(0);f.write(s);f.truncate();f.close()"
         python -c "f=open('CMakeLists.txt','r+b');s=f.read();start_str=b'cmake_minimum_required(VERSION ';start=s.rindex(start_str);end=s.index(b')',start);s=s[:start]+start_str+b'3.15'+s[end:];f.seek(0);f.write(s);f.truncate();f.close()"
         python -c "f=open('src/plugins/intel_gpu/thirdparty/onednn_gpu/CMakeLists.txt','r+b');s=f.read();start_str=b'cmake_minimum_required(VERSION ';start=s.index(start_str);end=s.index(b')',start);s=s[:start]+start_str+b'3.15'+s[end:];f.seek(0);f.write(s);f.truncate();f.close()"
 
