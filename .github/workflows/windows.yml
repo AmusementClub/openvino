@@ -16,7 +16,7 @@ jobs:
       with:
         submodules: recursive
         # master
-        ref: 7ca4f07a3c4ea32ae800c93098a187ec7bd42efa
+        ref: 4655dd6ce3fa7947d5f70c3552f31fdda50582d0
         fetch-depth: 0
 
     - name: Setup MSVC
@@ -25,8 +25,13 @@ jobs:
     - name: Setup Ninja
       run: pip install ninja
 
+    - name: Remove apiValidator
+      run: |
+        cd /d "C:\Program Files (x86)\Windows Kits\10\bin"
+        del /f /s /q apiValidator.exe
+
     - name: Configure
-      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=ON -LA
+      run: cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=ON -Wno-dev -LA
         -D CMAKE_TOOLCHAIN_FILE=%cd%\cmake\toolchains\mt.runtime.win32.toolchain.cmake
         -D ENABLE_LTO=ON -DENABLE_FASTER_BUILD=ON -D VERBOSE_BUILD=ON -D TREAT_WARNING_AS_ERROR=OFF
         -D ENABLE_PYTHON=OFF -D ENABLE_WHEEL=OFF
